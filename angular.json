@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pomo-focus"
+    }
+  },
+  "defaultProject": "pomo-focus",
+  "cli": {
+    "analytics": false
+  }
 }
