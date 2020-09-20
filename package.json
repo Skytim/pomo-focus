@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package": "ng build --prod --base-href=/pomo-focus/"
+    "package": "ng build --prod --base-href=/pomo-focus/",
+    "upload": "npx ngh --dir=dist/pomo-focus --no-silent"
   },
   "private": true,
   "dependencies": {

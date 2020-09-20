@@ -4,6 +4,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountdownModule } from 'ngx-countdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AppComponent,
@@ -11,6 +12,7 @@ import { CountdownModule } from 'ngx-countdown';
   imports: [
     BrowserModule,
     TranslateModule.forRoot(),
+    ModalModule.forRoot(),
     AppRoutingModule,
     CountdownModule 
   ],

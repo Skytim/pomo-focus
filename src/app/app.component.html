@@ -2,7 +2,20 @@
   <!-- For demo purpose-->
   <header class="text-center">
     <h1 class="display-4 mb-4">Pomo Forcus</h1>
-
+    <ul class="list-inline">
+      <li class="list-inline-item pt-2" (click)="openModalWithComponent()">
+        <button id="btn-reset" type="button" class="btn btn-demo"><i
+            class="glyphicon glyphicon-repeat"></i>Report</button>
+      </li>
+      <li class="list-inline-item pt-2" (click)="cd1.pause()">
+        <button id="btn-pause" type="button" class="btn btn-demo"><i
+            class="glyphicon glyphicon-repeat"></i>Setting</button>
+      </li>
+      <li class="list-inline-item pt-2" (click)="cd1.restart()">
+        <button id="btn-resume" type="button" class="btn btn-demo"><i
+            class="glyphicon glyphicon-repeat"></i>Login</button>
+      </li>
+    </ul>
   </header>
 
   <div class="row">
@@ -47,20 +60,17 @@
 
         <div class="container">
           <div class="row">
-            <div class="col-6 col-md-4">
-            </div>
-            <div class="col-6 col-md-4">
+            <div class="col-sm"></div>
+            <div class="col-sm">
               <ul class="list-group">
                 <li class="list-group-item">Task</li>
               </ul>
             </div>
-            <div class="col-6 col-md-4">
-            </div>
+            <div class="col-sm"></div>
           </div>
           <div class="row">
-            <div class="col-6 col-md-4">
-            </div>
-            <div class="col-6 col-md-4">
+            <div class="col-sm"></div>
+            <div class="col-sm">
               <li class="input-group mb-3 pt-2">
                 <button type="button" class="btn btn-secondary btn-lg btn-block">
                   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor"
@@ -71,11 +81,9 @@
                       d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                   </svg>
                   Add Task</button>
-
               </li>
             </div>
-            <div class="col-6 col-md-4">
-            </div>
+            <div class="col-sm"></div>
           </div>
         </div>
 
