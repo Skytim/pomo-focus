@@ -10,26 +10,15 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   @ViewChild('cd1', { static: false }) private countdown: CountdownComponent;
-  title = 'pomo-focus';
-  public intervallTimer = interval(500);
-  private subscription;
+
+  leftTime = 1500;
+  notify = "Time to work!";
   constructor(private titleService: Title) {
 
   }
   ngOnInit(): void {
   }
-  handleEvent($event) {
-    console.log($event);
-    const timer$ = timer(5000);
-    if ($event.action === "resume") {
-      this.subscription = this.intervallTimer.pipe(takeUntil(timer$)).subscribe(x => {
-        console.log(this.countdown);
-        this.titleService.setTitle(this.countdown.i.text);
-      });
-    }
-    if ($event.action === "stop" || $event.action === "done") {
-      this.subscription.unsubscribe();
-      this.titleService.setTitle('Finish');
-    }
+  setTime(leftTime: number) {
+    this.leftTime = leftTime;
   }
 }
