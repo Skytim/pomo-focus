@@ -7,6 +7,8 @@ import { CountdownModule } from 'ngx-countdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ReportComponent } from './components/report/report.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { ReportComponent } from './components/report/report.component';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     AppRoutingModule,
-    CountdownModule 
+    CountdownModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) 
   ],
   bootstrap: [AppComponent]
 })
