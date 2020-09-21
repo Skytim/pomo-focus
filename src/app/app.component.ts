@@ -10,30 +10,63 @@ import { ReportComponent } from './components/report/report.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('cd1', { static: false }) private countdown: CountdownComponent;
+  @ViewChild('cd1', { static: false }) countdown: CountdownComponent;
   bsModalRef: BsModalRef;
   leftTime = 1500;
+
+  statusMapping = {
+    Pomodoro: { leftTime: 1500, notify: 'Time to work!' },
+    ShortBreak: { leftTime: 600, notify: 'Time for a break!' },
+    LongBreak: { leftTime: 900, notify: 'Time for a tea!' },
+  };
   notify = "Time to work!";
+  displayAddTaskCard = false;
   constructor(private titleService: Title, private modalService: BsModalService) {
 
   }
   ngOnInit(): void {
+
   }
-  setTime(leftTime: number) {
-    this.leftTime = leftTime;
+  setTime(status: string) {
+    this.leftTime = this.statusMapping[status].leftTime;
+    this.notify = this.statusMapping[status].notify;
+    this.setTitle();
   }
 
   openModalWithComponent() {
-    const initialState = {
-      list: [
-        'Open a modal with component',
-        'Pass your data',
-        'Do something else',
-        '...'
-      ],
-      title: 'Modal with component'
-    };
-    this.bsModalRef = this.modalService.show(ReportComponent, { initialState });
+
+    this.bsModalRef = this.modalService.show(ReportComponent);
     this.bsModalRef.content.closeBtnName = 'Close';
+  }
+
+  setTitle() {
+    const countdownNode = document.querySelector('countdown');
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(() => {
+        this.titleService.setTitle(document.querySelector('span').innerText + ' ' + this.notify);
+      }
+      );
+    });
+
+    observer.observe(countdownNode, {
+      subtree: true,
+      characterDataOldValue: true,
+      attributes: true
+    });
+  }
+
+  begin() {
+    this.countdown.begin();
+    this.setTitle();
+  }
+
+  pause() {
+    this.countdown.pause();
+    this.setTitle();
+  }
+
+  restart() {
+    this.countdown.restart();
+    this.setTitle();
   }
 }
