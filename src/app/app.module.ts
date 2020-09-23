@@ -1,6 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountdownModule } from 'ngx-countdown';
@@ -21,7 +21,10 @@ import { environment } from '../environments/environment';
     ModalModule.forRoot(),
     AppRoutingModule,
     CountdownModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) 
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+  ],
+  providers: [
+    Title
   ],
   bootstrap: [AppComponent]
 })
