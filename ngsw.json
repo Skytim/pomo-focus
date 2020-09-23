@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1600706428463,
+  "timestamp": 1600867181375,
   "index": "/pomo-focus/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/pomo-focus/favicon.ico",
         "/pomo-focus/index.html",
-        "/pomo-focus/main.906d1d18838e9a53ea76.js",
+        "/pomo-focus/main.15ad163633cb83eaae30.js",
         "/pomo-focus/manifest.webmanifest",
         "/pomo-focus/polyfills.08cdd93a9921fbb99ed7.js",
         "/pomo-focus/runtime.f9956ac3c2762746a398.js",
@@ -52,8 +52,8 @@
     "/pomo-focus/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/pomo-focus/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/pomo-focus/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pomo-focus/index.html": "8269ada9bb2bfe3dc547f5911663ec41f8185fc4",
-    "/pomo-focus/main.906d1d18838e9a53ea76.js": "e087fb4dd7342ce6c59c42cabdcbac508e5bc146",
+    "/pomo-focus/index.html": "592b9f0dc1b04ee7f5ad814e322be9486e73c20a",
+    "/pomo-focus/main.15ad163633cb83eaae30.js": "dc6af944bc1557d051ecae493ba526c818474cbe",
     "/pomo-focus/manifest.webmanifest": "0530f3742b636c7e0ca74ea3c77ecd25809af1a9",
     "/pomo-focus/polyfills.08cdd93a9921fbb99ed7.js": "578360d24ce37383f261c7ef63b1f822d28e8dde",
     "/pomo-focus/runtime.f9956ac3c2762746a398.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
