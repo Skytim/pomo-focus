@@ -8,7 +8,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ReportComponent } from './components/report/report.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment, firebaseConfig } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +24,8 @@ import { environment } from '../environments/environment';
     ModalModule.forRoot(),
     AppRoutingModule,
     CountdownModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
