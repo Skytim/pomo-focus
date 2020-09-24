@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pomo-forcus": {
+      "hosting": {
+        "pomo-focus": [
+          "pomo-forcus"
+        ]
+      }
+    }
+  }
+}

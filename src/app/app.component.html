@@ -37,7 +37,7 @@
               Break</button>
           </li>
         </ul>
-        <p class="mb-0 font-weight-bold text-uppercase">Time to work</p>
+        <p class="mb-0 font-weight-bold text-uppercase">{{notify}}</p>
         <h1 id="clock-c" class="countdown py-4">
           <countdown #cd1 [config]="{leftTime: leftTime,demand:true, format: 'mm:ss'}"></countdown>
         </h1>
@@ -94,14 +94,14 @@
                   <h5 class="card-title"><input class="form-control" placeholder="What are you working on" /></h5>
                   <label class="text-left" for="EstPomodoros">Est Pomodoros</label>
                   <input class="form-control " type="number" id="EstPomodoros" />
-                  
+
                 </div>
                 <div class="card-footer text-right">
                   <a href="#" class="btn btn-info">Cancel</a>
                   <a href="#" class="btn btn-primary">Save</a>
                 </div>
               </div>
-        
+
             </div>
             <div class="col-sm"></div>
           </div>

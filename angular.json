@@ -126,6 +126,10 @@
               "devServerTarget": "pomo-focus:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
