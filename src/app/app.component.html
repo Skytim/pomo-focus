@@ -12,16 +12,13 @@
             class="glyphicon glyphicon-repeat"></i>Setting</button>
       </li>
       <li class="list-inline-item pt-2" >
-        <button id="btn-resume" type="button" class="btn btn-demo" *ngIf="this.afAuth.authState | async; let user; else showLogin"><i
-            class="glyphicon glyphicon-repeat"></i>Login</button>
+        <button id="btn-resume" type="button" (click)="logout()"  class="btn btn-demo" *ngIf="this.afAuth.authState | async; let user; else showLogin"><i
+            class="glyphicon glyphicon-repeat"></i>Logout</button>
       </li>
       <ng-template #showLogin>
-        <div class="GoogleSignInButton">
-          <button (click)="login()" mat-flat-button>
-            <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-            Login with Google
+          <button (click)="login()"  type="button" class="btn btn-demo">
+            Login
           </button>
-        </div>
        </ng-template>
     </ul>
   </header>
