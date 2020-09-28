@@ -4,9 +4,11 @@ import { CountdownComponent } from 'ngx-countdown';
 import { Title } from '@angular/platform-browser';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ReportComponent } from './components/report/report.component';
-
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import { UserService } from './services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,12 +26,22 @@ export class AppComponent implements OnInit {
     LongBreak: { leftTime: 900, notify: 'Time for a tea!' },
   };
   notify = 'Time to work!';
-  displayAddTaskCard = false;
-  constructor(private titleService: Title, private modalService: BsModalService, public afAuth: AngularFireAuth) {
 
+  isLoggedIn: Observable<boolean>;
+  displayAddTaskCard = false;
+  constructor(private titleService: Title, private modalService: BsModalService, public userService: UserService,
+    private db: AngularFirestore) {
+    this.isLoggedIn = userService.isLoggedIn();
+    this.isLoggedIn.subscribe(x => {
+      const userId = localStorage.getItem('UserID');
+      if (userId !== null) {
+        this.db.collection('user_settings').doc(userId).get().subscribe(settings => {
+          console.log(settings.data());
+        });
+      }
+    });
   }
   ngOnInit(): void {
-
   }
   setTime(status: string) {
     this.leftTime = this.statusMapping[status].leftTime;
@@ -74,14 +86,5 @@ export class AppComponent implements OnInit {
     this.setTitle();
   }
 
-  async login() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
-    localStorage.setItem('UserID', credential.user.uid);
-  }
 
-  logout() {
-    this.afAuth.signOut();
-    localStorage.setItem('UserID', '');
-  }
 }

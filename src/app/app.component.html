@@ -7,19 +7,17 @@
         <button id="btn-reset" type="button" class="btn btn-demo"><i
             class="glyphicon glyphicon-repeat"></i>Report</button>
       </li>
-      <li class="list-inline-item pt-2" >
+      <li class="list-inline-item pt-2">
         <button id="btn-pause" type="button" class="btn btn-demo"><i
             class="glyphicon glyphicon-repeat"></i>Setting</button>
       </li>
-      <li class="list-inline-item pt-2" >
-        <button id="btn-resume" type="button" (click)="logout()"  class="btn btn-demo" *ngIf="this.afAuth.authState | async; let user; else showLogin"><i
-            class="glyphicon glyphicon-repeat"></i>Logout</button>
+      <li class="list-inline-item pt-2">
+        <button id="btn-resume" type="button" (click)="userService.logout()" class="btn btn-demo"
+          *ngIf="(isLoggedIn | async)"><i class="glyphicon glyphicon-repeat"></i>Logout</button>
+        <button (click)="userService.login()" type="button" class="btn btn-demo" *ngIf="!(isLoggedIn | async)">
+          Login
+        </button>
       </li>
-      <ng-template #showLogin>
-          <button (click)="login()"  type="button" class="btn btn-demo">
-            Login
-          </button>
-       </ng-template>
     </ul>
   </header>
 
@@ -94,7 +92,7 @@
           <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">
-              <div class="card " [hidden]="!displayAddTaskCard" >
+              <div class="card " [hidden]="!displayAddTaskCard">
                 <div class="card-body text-left">
                   <h5 class="card-title"><input class="form-control" placeholder="What are you working on" /></h5>
                   <label class="text-left" for="EstPomodoros">Est Pomodoros</label>
