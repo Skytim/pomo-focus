@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-setting',
@@ -8,7 +9,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class SettingComponent implements OnInit {
 
-  constructor(public bsModalRef: BsModalRef) {}
+  statusMapping: any = {};
+  constructor(public bsModalRef: BsModalRef, public settingsService: SettingsService) {
+    this.statusMapping = this.settingsService.getSetting();
+  }
 
   ngOnInit() {
   }

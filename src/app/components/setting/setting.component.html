@@ -12,23 +12,23 @@
         <div class="form-group row">
           <label for="Pomodoro">Email address</label>
           <div class="col-10">
-            <input class="form-control" type="number" value="25" id="Pomodoro">
+            <input class="form-control" type="number" value="{{statusMapping.Pomodoro.leftTime}}" id="Pomodoro">
           </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group row">
-          <label for="ShortBreak" >Short Break</label>
+          <label for="ShortBreak">Short Break</label>
           <div class="col-10">
-            <input class="form-control" type="number" value="5" id="ShortBreak">
+            <input class="form-control" type="number" value="{{statusMapping.ShortBreak.leftTime}}" id="ShortBreak">
           </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group row">
-          <label for="LongBreak" >Long Break</label>
+          <label for="LongBreak">Long Break</label>
           <div class="col-10">
-            <input class="form-control" type="number" value="15" id="LongBreak">
+            <input class="form-control" type="number" value="{{statusMapping.LongBreak.leftTime}}" id="LongBreak">
           </div>
         </div>
       </div>

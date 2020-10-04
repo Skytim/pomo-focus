@@ -33,5 +33,9 @@ export class UserService {
   isLoggedIn(): Observable<boolean> {
     return this.isLoginSubject.asObservable();
   }
+  
+  getUserId() {
+    return localStorage.getItem('UserID');
+  }
 
 }

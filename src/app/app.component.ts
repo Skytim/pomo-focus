@@ -37,10 +37,11 @@ export class AppComponent implements OnInit {
       const userId = localStorage.getItem('UserID');
       if (userId !== null) {
         this.db.collection('user_settings').doc(userId).get().subscribe(settings => {
-          this.statusMapping.Pomodoro.leftTime = settings.data().pomo_doro_left_time;
-          this.statusMapping.LongBreak.leftTime = settings.data().long_break_left_time;
-          this.statusMapping.ShortBreak.leftTime = settings.data().short_break_left_time;
-          console.log(settings.data());
+          if (settings.data() !== undefined) {
+            this.statusMapping.Pomodoro.leftTime = settings.data().pomo_doro_left_time;
+            this.statusMapping.LongBreak.leftTime = settings.data().long_break_left_time;
+            this.statusMapping.ShortBreak.leftTime = settings.data().short_break_left_time;
+          }
         });
       }
     });
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
     if (type === 'Report') {
       this.bsModalRef = this.modalService.show(ReportComponent);
     }
-    else{
+    else {
       this.bsModalRef = this.modalService.show(SettingComponent);
     }
     this.bsModalRef.content.closeBtnName = 'Close';
