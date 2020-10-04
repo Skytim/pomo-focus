@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { UserService } from './services/user.service';
 import { Observable } from 'rxjs';
+import { SettingComponent } from './components/setting/setting.component';
 
 @Component({
   selector: 'app-root',
@@ -52,9 +53,13 @@ export class AppComponent implements OnInit {
     this.setTitle();
   }
 
-  openModalWithComponent() {
-
-    this.bsModalRef = this.modalService.show(ReportComponent);
+  openModalWithComponent(type: string) {
+    if (type === 'Report') {
+      this.bsModalRef = this.modalService.show(ReportComponent);
+    }
+    else{
+      this.bsModalRef = this.modalService.show(SettingComponent);
+    }
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 

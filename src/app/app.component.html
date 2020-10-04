@@ -3,11 +3,11 @@
   <header class="text-center">
     <h1 class="display-4 mb-4">Pomo Forcus</h1>
     <ul class="list-inline">
-      <li class="list-inline-item pt-2" (click)="openModalWithComponent()">
+      <li class="list-inline-item pt-2" (click)="openModalWithComponent('Report')">
         <button id="btn-reset" type="button" class="btn btn-demo"><i
             class="glyphicon glyphicon-repeat"></i>Report</button>
       </li>
-      <li class="list-inline-item pt-2">
+      <li class="list-inline-item pt-2" (click)="openModalWithComponent('Setting')">
         <button id="btn-pause" type="button" class="btn btn-demo"><i
             class="glyphicon glyphicon-repeat"></i>Setting</button>
       </li>

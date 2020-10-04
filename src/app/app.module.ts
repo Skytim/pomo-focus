@@ -11,11 +11,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment, firebaseConfig } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { SettingComponent } from './components/setting/setting.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReportComponent
+    ReportComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,
