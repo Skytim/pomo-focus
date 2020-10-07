@@ -7,7 +7,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from './services/user.service';
 import { Observable } from 'rxjs';
 import { SettingComponent } from './components/setting/setting.component';
-
+import { CountdownEvent } from 'ngx-countdown';
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,14 +17,14 @@ import { SettingComponent } from './components/setting/setting.component';
 export class AppComponent implements OnInit {
   @ViewChild('cd1', { static: false }) countdown: CountdownComponent;
   bsModalRef: BsModalRef;
-  leftTime = 1500;
+  leftTime = 10;
 
   timerStatus = 'Pomodoro';
 
   statusMapping = {
-    Pomodoro: { leftTime: 1500, notify: 'Time to work!' },
-    ShortBreak: { leftTime: 600, notify: 'Time for a break!' },
-    LongBreak: { leftTime: 900, notify: 'Time for a tea!' },
+    Pomodoro: { leftTime: 10, notify: 'Time to work!' },
+    ShortBreak: { leftTime: 3, notify: 'Time for a break!' },
+    LongBreak: { leftTime: 5, notify: 'Time for a tea!' },
   };
   notify = 'Time to work!';
 
@@ -95,5 +96,10 @@ export class AppComponent implements OnInit {
     this.countdown.restart();
     this.setTitle();
   }
-
+  handleEvent(e: CountdownEvent) {
+    if (e.action === 'done') {
+      this.setTime('Pomodoro');
+      timer(1000).subscribe(val => this.begin());
+    }
+  }
 }

@@ -42,7 +42,7 @@
         </ul>
         <p class="mb-0 font-weight-bold text-uppercase">{{notify}}</p>
         <h1 id="clock-c" class="countdown py-4">
-          <countdown #cd1 [config]="{leftTime: leftTime,demand:true, format: 'mm:ss'}"></countdown>
+          <countdown #cd1 [config]="{leftTime: leftTime,demand:true, format: 'mm:ss'}" (event)="handleEvent($event)"></countdown>
         </h1>
 
         <!-- Call to actions -->
