@@ -10,9 +10,9 @@ export class UserService {
 
   }
 
-  isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
+  isLoginSubject = new BehaviorSubject<boolean>(this.hasLogin());
 
-  private hasToken(): boolean {
+  public hasLogin(): boolean {
     return !!localStorage.getItem('UserID');
   }
 
@@ -33,7 +33,7 @@ export class UserService {
   isLoggedIn(): Observable<boolean> {
     return this.isLoginSubject.asObservable();
   }
-  
+
   getUserId() {
     return localStorage.getItem('UserID');
   }

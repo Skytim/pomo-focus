@@ -18,7 +18,7 @@ export class SettingsService {
 
   getSetting() {
     this.statusMapping = Object.assign({}, this.defaultStatusMapping);
-    if (this.userService.isLoggedIn()) {
+    if (this.userService.hasLogin()) {
 
       this.db.collection('user_settings').doc(this.userService.getUserId()).get().subscribe(settings => {
         if (settings.data() !== undefined) {
