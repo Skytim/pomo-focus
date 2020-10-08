@@ -105,11 +105,24 @@ export class AppComponent implements OnInit {
 
       if (this.timerStatus === TimerStatus.Pomodoro) {
         this.setTime(TimerStatus.ShortBreak);
-      }else {
+      } else {
         this.setTime(TimerStatus.Pomodoro);
       }
-      timer(100).subscribe(val => {
-        this.begin();
+      const countdownNode = document.querySelector('countdown');
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach(() => {
+          if (document.querySelector('span').innerText !== '00:00') {
+            this.begin();
+            observer.disconnect();
+          }
+        }
+        );
+      });
+
+      observer.observe(countdownNode, {
+        subtree: true,
+        characterDataOldValue: true,
+        attributes: true
       });
     }
   }
