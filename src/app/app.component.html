@@ -27,15 +27,15 @@
       <div class="rounded bg-gradient-4 shadow p-5 text-center mb-5">
         <!-- Call to actions -->
         <ul class="list-inline">
-          <li class="list-inline-item pt-2" (click)="setTime('Pomodoro')">
+          <li class="list-inline-item pt-2" (click)="setTime(TimerStatus.Pomodoro)">
             <button id="btn-reset" type="button" class="btn btn-demo"><i
                 class="glyphicon glyphicon-repeat"></i>Pomodoro</button>
           </li>
-          <li class="list-inline-item pt-2" (click)="setTime('ShortBreak')">
+          <li class="list-inline-item pt-2" (click)="setTime(TimerStatus.ShortBreak)">
             <button id="btn-pause" type="button" class="btn btn-demo"><i class="glyphicon glyphicon-repeat"></i>Short
               Break</button>
           </li>
-          <li class="list-inline-item pt-2" (click)="setTime('LongBreak')">
+          <li class="list-inline-item pt-2" (click)="setTime(TimerStatus.LongBreak)">
             <button id="btn-resume" type="button" class="btn btn-demo"><i class="glyphicon glyphicon-repeat"></i>Long
               Break</button>
           </li>

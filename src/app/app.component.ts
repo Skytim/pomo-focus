@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { SettingComponent } from './components/setting/setting.component';
 import { CountdownEvent } from 'ngx-countdown';
 import { timer } from 'rxjs';
+import { TimerStatus } from './enums/timer-status.enum';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,14 +18,15 @@ import { timer } from 'rxjs';
 export class AppComponent implements OnInit {
   @ViewChild('cd1', { static: false }) countdown: CountdownComponent;
   bsModalRef: BsModalRef;
-  leftTime = 10;
+  leftTime = 5;
 
-  timerStatus = 'Pomodoro';
+  TimerStatus = TimerStatus;
+  timerStatus = TimerStatus.Pomodoro;
 
   statusMapping = {
-    Pomodoro: { leftTime: 10, notify: 'Time to work!' },
-    ShortBreak: { leftTime: 3, notify: 'Time for a break!' },
-    LongBreak: { leftTime: 5, notify: 'Time for a tea!' },
+    Pomodoro: { leftTime: 5, notify: 'Time to work!' },
+    ShortBreak: { leftTime: 1, notify: 'Time for a break!' },
+    LongBreak: { leftTime: 2, notify: 'Time for a tea!' },
   };
   notify = 'Time to work!';
 
@@ -49,9 +51,11 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  setTime(status: string) {
-    this.leftTime = this.statusMapping[status].leftTime;
-    this.notify = this.statusMapping[status].notify;
+  setTime(status: TimerStatus) {
+    const stringStatus = TimerStatus[status];
+    this.leftTime = -1;
+    this.leftTime = this.statusMapping[stringStatus].leftTime;
+    this.notify = this.statusMapping[stringStatus].notify;
     this.timerStatus = status;
     this.setTitle();
   }
@@ -98,8 +102,15 @@ export class AppComponent implements OnInit {
   }
   handleEvent(e: CountdownEvent) {
     if (e.action === 'done') {
-      this.setTime('Pomodoro');
-      timer(1000).subscribe(val => this.begin());
+
+      if (this.timerStatus === TimerStatus.Pomodoro) {
+        this.setTime(TimerStatus.ShortBreak);
+      }else {
+        this.setTime(TimerStatus.Pomodoro);
+      }
+      timer(100).subscribe(val => {
+        this.begin();
+      });
     }
   }
 }
