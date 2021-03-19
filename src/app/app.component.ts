@@ -2,7 +2,6 @@ import { ITaskModel } from './models/task.model';
 import { TasksService } from './services/tasks.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CountdownComponent } from 'ngx-countdown';
-
 import { Title } from '@angular/platform-browser';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ReportComponent } from './components/report/report.component';
@@ -11,6 +10,9 @@ import { UserService } from './services/user.service';
 import { Observable } from 'rxjs';
 import { SettingComponent } from './components/setting/setting.component';
 import { FormBuilder } from '@angular/forms';
+import { CountdownEvent } from 'ngx-countdown';
+import { timer } from 'rxjs';
+import { TimerStatus } from './enums/timer-status.enum';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,14 +21,15 @@ import { FormBuilder } from '@angular/forms';
 export class AppComponent implements OnInit {
   @ViewChild('cd1', { static: false }) countdown: CountdownComponent;
   bsModalRef: BsModalRef;
-  leftTime = 1500;
+  leftTime = 5;
 
+  TimerStatus = TimerStatus;
+  timerStatus = TimerStatus.Pomodoro;
   taskForm;
-
   statusMapping = {
-    Pomodoro: { leftTime: 1500, notify: 'Time to work!' },
-    ShortBreak: { leftTime: 600, notify: 'Time for a break!' },
-    LongBreak: { leftTime: 900, notify: 'Time for a tea!' },
+    Pomodoro: { leftTime: 5, notify: 'Time to work!' },
+    ShortBreak: { leftTime: 1, notify: 'Time for a break!' },
+    LongBreak: { leftTime: 2, notify: 'Time for a tea!' },
   };
   notify = 'Time to work!';
 
@@ -63,9 +66,12 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
-  setTime(status: string) {
-    this.leftTime = this.statusMapping[status].leftTime;
-    this.notify = this.statusMapping[status].notify;
+  setTime(status: TimerStatus) {
+    const stringStatus = TimerStatus[status];
+    this.leftTime = -1;
+    this.leftTime = this.statusMapping[stringStatus].leftTime;
+    this.notify = this.statusMapping[stringStatus].notify;
+    this.timerStatus = status;
     this.setTitle();
   }
 
@@ -109,10 +115,36 @@ export class AppComponent implements OnInit {
     this.countdown.restart();
     this.setTitle();
   }
-  onSubmit(data: ITaskModel) {
-    // Process checkout data here
-    console.warn('Your order has been submitted', data);
-    this.tasksService.saveTask(data);
-    this.taskForm.reset();
+  handleEvent(e: CountdownEvent) {
+    if (e.action === 'done') {
+
+      if (this.timerStatus === TimerStatus.Pomodoro) {
+        this.setTime(TimerStatus.ShortBreak);
+      } else {
+        this.setTime(TimerStatus.Pomodoro);
+      }
+      const countdownNode = document.querySelector('countdown');
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach(() => {
+          if (document.querySelector('span').innerText !== '00:00') {
+            this.begin();
+            observer.disconnect();
+          }
+        }
+        );
+      });
+
+      observer.observe(countdownNode, {
+        subtree: true,
+        characterDataOldValue: true,
+        attributes: true
+      });
+    }
+	onSubmit(data: ITaskModel) {
+	// Process checkout data here
+	console.warn('Your order has been submitted', data);
+	this.tasksService.saveTask(data);
+	this.taskForm.reset();
+	}
   }
 }
