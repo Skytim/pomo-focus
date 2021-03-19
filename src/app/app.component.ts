@@ -1,3 +1,5 @@
+import { ITaskModel } from './models/task.model';
+import { TasksService } from './services/tasks.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CountdownComponent } from 'ngx-countdown';
 
@@ -5,21 +7,21 @@ import { Title } from '@angular/platform-browser';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ReportComponent } from './components/report/report.component';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase/app';
 import { UserService } from './services/user.service';
 import { Observable } from 'rxjs';
 import { SettingComponent } from './components/setting/setting.component';
-
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   @ViewChild('cd1', { static: false }) countdown: CountdownComponent;
   bsModalRef: BsModalRef;
   leftTime = 1500;
+
+  taskForm;
 
   statusMapping = {
     Pomodoro: { leftTime: 1500, notify: 'Time to work!' },
@@ -30,24 +32,37 @@ export class AppComponent implements OnInit {
 
   isLoggedIn: Observable<boolean>;
   displayAddTaskCard = false;
-  constructor(private titleService: Title, private modalService: BsModalService, public userService: UserService,
-    private db: AngularFirestore) {
+  constructor(
+    private titleService: Title,
+    private modalService: BsModalService,
+    public userService: UserService,
+    public tasksService: TasksService,
+    private formBuilder: FormBuilder,
+    private db: AngularFirestore
+  ) {
     this.isLoggedIn = userService.isLoggedIn();
-    this.isLoggedIn.subscribe(x => {
+    this.isLoggedIn.subscribe((x) => {
       const userId = localStorage.getItem('UserID');
       if (userId !== null) {
-        this.db.collection('user_settings').doc(userId).get().subscribe(settings => {
-          if (settings.data() !== undefined) {
-            this.statusMapping.Pomodoro.leftTime = settings.data().pomo_doro_left_time;
-            this.statusMapping.LongBreak.leftTime = settings.data().long_break_left_time;
-            this.statusMapping.ShortBreak.leftTime = settings.data().short_break_left_time;
-          }
-        });
+        this.db
+          .collection('user_settings')
+          .doc(userId)
+          .get()
+          .subscribe((settings) => {
+            if (settings.data() !== undefined) {
+              this.statusMapping.Pomodoro.leftTime = settings.data().pomo_doro_left_time;
+              this.statusMapping.LongBreak.leftTime = settings.data().long_break_left_time;
+              this.statusMapping.ShortBreak.leftTime = settings.data().short_break_left_time;
+            }
+          });
       }
+      this.taskForm = this.formBuilder.group({
+        description: '',
+        estimate: '',
+      });
     });
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   setTime(status: string) {
     this.leftTime = this.statusMapping[status].leftTime;
     this.notify = this.statusMapping[status].notify;
@@ -57,8 +72,7 @@ export class AppComponent implements OnInit {
   openModalWithComponent(type: string) {
     if (type === 'Report') {
       this.bsModalRef = this.modalService.show(ReportComponent);
-    }
-    else {
+    } else {
       this.bsModalRef = this.modalService.show(SettingComponent);
     }
     this.bsModalRef.content.closeBtnName = 'Close';
@@ -68,15 +82,16 @@ export class AppComponent implements OnInit {
     const countdownNode = document.querySelector('countdown');
     const observer = new MutationObserver((mutations) => {
       mutations.forEach(() => {
-        this.titleService.setTitle(document.querySelector('span').innerText + ' ' + this.notify);
-      }
-      );
+        this.titleService.setTitle(
+          document.querySelector('span').innerText + ' ' + this.notify
+        );
+      });
     });
 
     observer.observe(countdownNode, {
       subtree: true,
       characterDataOldValue: true,
-      attributes: true
+      attributes: true,
     });
   }
 
@@ -94,6 +109,10 @@ export class AppComponent implements OnInit {
     this.countdown.restart();
     this.setTitle();
   }
-
-
+  onSubmit(data: ITaskModel) {
+    // Process checkout data here
+    console.warn('Your order has been submitted', data);
+    this.tasksService.saveTask(data);
+    this.taskForm.reset();
+  }
 }

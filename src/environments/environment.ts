@@ -14,3 +14,14 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCX4MM6yJDums8rF4j3z1z6Mp79B7O9UnI",
+  authDomain: "pomo-forcus.firebaseapp.com",
+  databaseURL: "https://pomo-forcus.firebaseio.com",
+  projectId: "pomo-forcus",
+  storageBucket: "pomo-forcus.appspot.com",
+  messagingSenderId: "435260005212",
+  appId: "1:435260005212:web:a6cda1e4e1c254d888bf99",
+  measurementId: "G-P5RQX9H2R4"
+};

@@ -12,6 +12,7 @@ import { environment, firebaseConfig } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { SettingComponent } from './components/setting/setting.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { SettingComponent } from './components/setting/setting.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
