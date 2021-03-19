@@ -117,7 +117,6 @@ export class AppComponent implements OnInit {
   }
   handleEvent(e: CountdownEvent) {
     if (e.action === 'done') {
-
       if (this.timerStatus === TimerStatus.Pomodoro) {
         this.setTime(TimerStatus.ShortBreak);
       } else {
@@ -130,21 +129,20 @@ export class AppComponent implements OnInit {
             this.begin();
             observer.disconnect();
           }
-        }
-        );
+        });
       });
 
       observer.observe(countdownNode, {
         subtree: true,
         characterDataOldValue: true,
-        attributes: true
+        attributes: true,
       });
     }
-	onSubmit(data: ITaskModel) {
-	// Process checkout data here
-	console.warn('Your order has been submitted', data);
-	this.tasksService.saveTask(data);
-	this.taskForm.reset();
-	}
+  }
+  onSubmit(data: ITaskModel) {
+    // Process checkout data here
+    console.warn('Your order has been submitted', data);
+    this.tasksService.saveTask(data);
+    this.taskForm.reset();
   }
 }
